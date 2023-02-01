@@ -1,4 +1,8 @@
+using Application;
+using Application.Guest.Ports;
 using Data;
+using Data.Guest;
+using Domain.Ports;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
@@ -12,6 +16,11 @@ namespace API
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            #region IoC
+            builder.Services.AddScoped<IGuestRepository, GuestRepository>();
+            builder.Services.AddScoped<IGuestManager, GuestManager>();
+            #endregion
 
             #region DB wiring UP
             var connectionString = builder.Configuration.GetConnectionString("Main");

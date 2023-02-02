@@ -1,4 +1,7 @@
-﻿using Domain.ValueObjects;
+﻿using Domain.Exceptions;
+using Domain.ValueObjects;
+using Domain.UtilsTools;
+using Domain.Ports;
 
 namespace Domain.Entities
 {
@@ -9,5 +12,39 @@ namespace Domain.Entities
         public string Surname { get; set; }
         public string Email { get; set; }
         public DocumentId DocumentId { get; set; }
+
+        private void IsValid() 
+        {
+            if (DocumentId == null ||
+                DocumentId.IdNumber.Length <= 3 ||
+                DocumentId.DocumentType == 0) 
+            {
+                throw new InvalidDocumentIdException();
+            }
+
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname) || string.IsNullOrEmpty(Email))
+            {
+                throw new MissingRequiredInformationException();
+            }
+
+            if (!Utils.ValidEmail(Email))
+            {
+                throw new InvalidEmailException();
+            }
+        }
+
+        public async Task Save(IGuestRepository guestRepository)
+        {
+            this.IsValid();
+
+            if (this.Id == 0)
+            {
+                this.Id = await guestRepository.Create(this);
+            }
+            else
+            {
+                //await guestRepository.Update(this);
+            }
+        }
     }
 }

@@ -24,11 +24,12 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<GuestDTO>> Post(GuestDTO guest)
         {
-            var res = await _guestManager.CreateGuest(
-                new CreateGuestRequest 
-                {
-                    Data = guest,
-                });
+            var request = new CreateGuestRequest
+            {
+                Data = guest,
+            };
+
+            var res = await _guestManager.CreateGuest(request);
 
             if (res == null) { return BadRequest(500); }
 
@@ -37,6 +38,13 @@ namespace API.Controllers
                 return Created("", res.Data);
             }
             else if (res.ErrorCode == ErrorCode.NOT_FOUND)
+            {
+                return BadRequest(res);
+            }
+            else if (res.ErrorCode == ErrorCode.INVALID_DOCUMENT_ID ||
+                res.ErrorCode == ErrorCode.MISSING_REQUIRED_INFORMATION ||
+                res.ErrorCode == ErrorCode.INVALID_EMAIL ||
+                res.ErrorCode == ErrorCode.COULD_NOT_STORE_DATA)
             {
                 return BadRequest(res);
             }

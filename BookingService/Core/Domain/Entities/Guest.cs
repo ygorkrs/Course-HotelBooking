@@ -16,6 +16,7 @@ namespace Domain.Entities
         private void IsValid() 
         {
             if (DocumentId == null ||
+                string.IsNullOrEmpty(DocumentId.IdNumber) ||
                 DocumentId.IdNumber.Length <= 3 ||
                 DocumentId.DocumentType == 0) 
             {

@@ -1,10 +1,11 @@
 ﻿using Domain.Ports;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Guest
 {
     public class GuestRepository : IGuestRepository
     {
-        private HotelDBContext _hotelDBContext;
+        private readonly HotelDBContext _hotelDBContext;
         public GuestRepository(HotelDBContext hotelDBContext) 
         {
             _hotelDBContext = hotelDBContext;
@@ -17,9 +18,9 @@ namespace Data.Guest
             return guest.Id;
         }
 
-        public Task<Domain.Entities.Guest> Get(int id)
+        public Task<Domain.Entities.Guest?> Get(int id)
         {
-            throw new NotImplementedException();
+            return _hotelDBContext.Guests.Where(guest => guest.Id == id).FirstOrDefaultAsync();
         }
     }
 }

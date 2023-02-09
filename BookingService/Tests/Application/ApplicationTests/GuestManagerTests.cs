@@ -25,7 +25,7 @@ namespace ApplicationTests
         }
 
         [Test]
-        public async Task HappyPath()
+        public async Task ShouldReturnSucessGuestCreated()
         {
             var guestDTO = new GuestDTO
             {
@@ -127,6 +127,51 @@ namespace ApplicationTests
             Assert.IsNotNull(res);
             Assert.IsFalse(res.Sucess);
             Assert.AreEqual(res.ErrorCode, ErrorCode.INVALID_EMAIL);
+        }
+
+        [Test]
+        public async Task ShouldReturnGuestNotFoundWhenGuestDoesNotExist()
+        {
+            var mockRepo = new Mock<IGuestRepository>();
+
+            mockRepo.Setup(x => x.Get(333)).Returns(Task.FromResult<Guest?>(null));
+
+            guestManager = new GuestManager(mockRepo.Object);
+
+            var res = await guestManager.GetGuest(333);
+
+            Assert.IsNotNull(res);
+            Assert.False(res.Sucess);
+            Assert.AreEqual(res.ErrorCode, ErrorCode.GUEST_NOT_FOUND);
+        }
+
+        [Test]
+        public async Task ShouldReturnGetGuestSucess()
+        {
+            var fakeGuest = new Guest
+            {
+                Id = 333,
+                Name = "Test",
+                DocumentId = new Domain.ValueObjects.DocumentId
+                {
+                    DocumentType = Domain.Enums.DocumentType.DriveLicense,
+                    IdNumber = "BA558255"
+                }
+            };
+
+            var mockRepo = new Mock<IGuestRepository>();
+
+            mockRepo.Setup(x => x.Get(333)).Returns(Task.FromResult((Guest?)fakeGuest));
+
+            guestManager = new GuestManager(mockRepo.Object);
+            
+
+            var res = await guestManager.GetGuest(333);
+
+            Assert.IsNotNull(res);
+            Assert.True(res.Sucess);
+            Assert.AreEqual(res.Data.Id, fakeGuest.Id);
+            Assert.AreEqual(res.Data.Name, fakeGuest.Name);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace API.Controllers
             }
             else if (res.ErrorCode == ErrorCode.NOT_FOUND)
             {
-                return BadRequest(res);
+                return NotFound(res);
             }
             else if (res.ErrorCode == ErrorCode.INVALID_DOCUMENT_ID ||
                 res.ErrorCode == ErrorCode.MISSING_REQUIRED_INFORMATION ||
@@ -51,6 +51,16 @@ namespace API.Controllers
 
             _logger.LogError("Response with unknown ErrorCode Returned", res);
             return BadRequest(500);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<GuestDTO>> Get(int idGuest)
+        {
+            var res = await _guestManager.GetGuest(idGuest);
+
+            if (res.Sucess) return Created("", res);
+
+            return NotFound(res);
         }
     }
 }

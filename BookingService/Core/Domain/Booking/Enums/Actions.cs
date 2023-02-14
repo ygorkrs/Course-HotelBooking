@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums
+﻿namespace Domain.Booking.Enums
 {
     public enum Actions
     {

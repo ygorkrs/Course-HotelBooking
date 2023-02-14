@@ -1,5 +1,5 @@
+using Domain.Booking.Enums;
 using Domain.Entities;
-using Domain.Enums;
 
 namespace DomainTests.Bookings
 {

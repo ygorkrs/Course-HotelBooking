@@ -1,7 +1,8 @@
 ﻿using Domain.Exceptions;
-using Domain.ValueObjects;
+using Domain.Guest.Exceptions;
 using Domain.UtilsTools;
-using Domain.Ports;
+using Domain.Guest.Ports;
+using Domain.Guest.ValueObjects;
 
 namespace Domain.Entities
 {

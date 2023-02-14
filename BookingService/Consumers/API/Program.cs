@@ -1,8 +1,12 @@
-using Application;
+using Application.Guest;
 using Application.Guest.Ports;
+using Application.Room;
+using Application.Room.Ports;
 using Data;
 using Data.Guest;
-using Domain.Ports;
+using Data.Room;
+using Domain.Guest.Ports;
+using Domain.Room.Ports;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
@@ -20,6 +24,8 @@ namespace API
             #region IoC
             builder.Services.AddScoped<IGuestRepository, GuestRepository>();
             builder.Services.AddScoped<IGuestManager, GuestManager>();
+            builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+            builder.Services.AddScoped<IRoomManager, RoomManager>();
             #endregion
 
             #region DB wiring UP

@@ -1,5 +1,5 @@
-﻿using Domain.Enums;
-using Action = Domain.Enums.Actions;
+﻿using Domain.Booking.Enums;
+using Action = Domain.Booking.Enums.Actions;
 
 namespace Domain.Entities
 {

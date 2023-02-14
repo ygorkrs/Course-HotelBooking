@@ -1,10 +1,12 @@
-using Application;
 using Application.Guest.DTO;
 using Application.Guest.Requests;
 using Moq;
 using Domain.Entities;
-using Domain.Ports;
 using Application.Responses;
+using Application.Guest;
+using Domain.Guest.Enums;
+using Domain.Guest.Ports;
+using Domain.Guest.ValueObjects;    
 
 namespace ApplicationTests
 {
@@ -152,9 +154,9 @@ namespace ApplicationTests
             {
                 Id = 333,
                 Name = "Test",
-                DocumentId = new Domain.ValueObjects.DocumentId
+                DocumentId = new DocumentId
                 {
-                    DocumentType = Domain.Enums.DocumentType.DriveLicense,
+                    DocumentType = DocumentType.DriveLicense,
                     IdNumber = "BA558255"
                 }
             };

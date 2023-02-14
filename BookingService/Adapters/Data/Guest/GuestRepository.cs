@@ -1,4 +1,4 @@
-﻿using Domain.Ports;
+﻿using Domain.Guest.Ports;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Guest

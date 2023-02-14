@@ -1,6 +1,6 @@
-﻿using Domain.Enums;
+﻿using Domain.Guest.Enums;
 
-namespace Domain.ValueObjects
+namespace Domain.Guest.ValueObjects
 {
     public class DocumentId
     {

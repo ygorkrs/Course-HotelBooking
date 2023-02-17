@@ -10,7 +10,7 @@ namespace Application.Guest
 {
     public class GuestManager : IGuestManager
     {
-        private IGuestRepository _guestRepository;
+        private readonly IGuestRepository _guestRepository;
 
         public GuestManager(IGuestRepository guestRepository)
         {

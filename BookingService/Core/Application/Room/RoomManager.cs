@@ -9,7 +9,7 @@ namespace Application.Room
 {
     public class RoomManager : IRoomManager
     {
-        private IRoomRepository _roomRepository;
+        private readonly IRoomRepository _roomRepository;
 
         public RoomManager(IRoomRepository roomRepository)
         {

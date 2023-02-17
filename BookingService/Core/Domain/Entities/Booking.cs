@@ -1,4 +1,6 @@
 ﻿using Domain.Booking.Enums;
+using Domain.Booking.Exceptions;
+using Domain.Booking.Ports;
 using Action = Domain.Booking.Enums.Actions;
 
 namespace Domain.Entities
@@ -34,6 +36,45 @@ namespace Domain.Entities
                 (Status.Canceled, Action.Reopen)    => Status.Created,
                 _ => this.Status
             };
+        }
+
+        private void IsValid()
+        {
+            if (this.PlacedAt == default(DateTime))
+            {
+                throw new MissingPlaceAtIformationException();
+            }
+            if (this.Start == default(DateTime))
+            {
+                throw new MissingStartInformationException(); 
+            }
+            if (this.End == default(DateTime))
+            {
+                throw new MissingEndInformationException();
+            }
+            if (this.Room == null)
+            {
+                throw new MissingRoomInformationException();
+            }
+            if (this.Guest == null)
+            {
+                throw new MissingGuestInformationException();
+            }
+        }
+
+        public async Task Save(IBookingRepository bookingRepository)
+        {
+            this.IsValid();
+
+            if (this.Id == 0)
+            {
+                var resp = await bookingRepository.Create(this);
+                this.Id = resp.Id;
+            }
+            else
+            {
+                // update
+            }
         }
     }
 }

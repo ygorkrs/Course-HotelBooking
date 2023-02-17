@@ -26,7 +26,7 @@ namespace Domain.Entities
             get { return true; }
         }
 
-        public void IsValid()
+        private void IsValid()
         {
             if (string.IsNullOrEmpty(Name) ||
                 Level < 1 ||

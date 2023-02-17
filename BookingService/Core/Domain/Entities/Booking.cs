@@ -23,6 +23,7 @@ namespace Domain.Entities
         public Booking()
         {
             this.Status = Status.Created;
+            this.PlacedAt = DateTime.UtcNow;
         }
 
         public void ChangeStatus(Action action)

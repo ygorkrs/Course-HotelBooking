@@ -144,7 +144,7 @@ namespace ApplicationTests
 
             Assert.IsNotNull(res);
             Assert.False(res.Sucess);
-            Assert.AreEqual(res.ErrorCode, ErrorCode.GUEST_NOT_FOUND);
+            Assert.AreEqual(res.ErrorCode, ErrorCode.NOT_FOUND_GUEST);
         }
 
         [Test]

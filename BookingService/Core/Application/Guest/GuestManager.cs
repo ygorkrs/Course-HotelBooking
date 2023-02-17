@@ -2,7 +2,6 @@
 using Application.Guest.Ports;
 using Application.Guest.Requests;
 using Application.Responses;
-using Domain.Exceptions;
 using Domain.Guest.Exceptions;
 using Domain.Guest.Ports;
 
@@ -65,7 +64,7 @@ namespace Application.Guest
                 return new GuestResponse
                 {
                     Sucess = false,
-                    ErrorCode = ErrorCode.COULD_NOT_STORE_DATA,
+                    ErrorCode = ErrorCode.COULD_NOT_STORE_GUEST,
                     Message = "There was an error when saving to DB"
                 };
             }
@@ -80,7 +79,7 @@ namespace Application.Guest
                 return new GuestResponse
                 {
                     Sucess = false,
-                    ErrorCode = ErrorCode.GUEST_NOT_FOUND,
+                    ErrorCode = ErrorCode.NOT_FOUND_GUEST,
                     Message = "Guest not found for the given Id",
                 };
             }

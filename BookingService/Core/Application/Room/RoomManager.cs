@@ -2,7 +2,7 @@
 using Application.Room.DTO;
 using Application.Room.Ports;
 using Application.Room.Requests;
-using Domain.Exceptions;
+using Domain.Room.Exceptions;
 using Domain.Room.Ports;
 
 namespace Application.Room
@@ -32,12 +32,12 @@ namespace Application.Room
                     Sucess = true,
                 };
             }
-            catch (MissingRequiredInformationException e)
+            catch (MissingRoomRequiredInformationException e)
             {
                 return new RoomResponse
                 {
                     Sucess = false,
-                    ErrorCode = ErrorCode.MISSING_REQUIRED_INFORMATION,
+                    ErrorCode = ErrorCode.MISSING_ROOM_REQUIRED_INFORMATION,
                     Message = "Missing required information passed",
                 };
             }
@@ -46,7 +46,7 @@ namespace Application.Room
                 return new RoomResponse
                 {
                     Sucess = false,
-                    ErrorCode = ErrorCode.COULD_NOT_STORE_DATA,
+                    ErrorCode = ErrorCode.COULD_NOT_STORE_ROOM,
                     Message = "There was an error when saving to DB",
                 };
             }
@@ -61,7 +61,7 @@ namespace Application.Room
                 return new RoomResponse
                 {
                     Sucess = false,
-                    ErrorCode = ErrorCode.NOT_FOUND,
+                    ErrorCode = ErrorCode.NOT_FOUND_ROOM,
                     Message = "Room not found for the given Id",
                 };
             }

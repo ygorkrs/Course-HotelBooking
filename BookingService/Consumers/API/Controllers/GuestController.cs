@@ -36,15 +36,11 @@ namespace API.Controllers
             if (res.Sucess)
             {
                 return Created("", res.Data);
-            }
-            else if (res.ErrorCode == ErrorCode.NOT_FOUND)
-            {
-                return NotFound(res);
-            }
+            }            
             else if (res.ErrorCode == ErrorCode.INVALID_DOCUMENT_ID ||
                 res.ErrorCode == ErrorCode.MISSING_REQUIRED_INFORMATION ||
                 res.ErrorCode == ErrorCode.INVALID_EMAIL ||
-                res.ErrorCode == ErrorCode.COULD_NOT_STORE_DATA)
+                res.ErrorCode == ErrorCode.COULD_NOT_STORE_GUEST)
             {
                 return BadRequest(res);
             }
@@ -58,7 +54,14 @@ namespace API.Controllers
         {
             var res = await _guestManager.GetGuest(idGuest);
 
-            if (res.Sucess) return Created("", res);
+            if (res.Sucess)
+            {
+                return Created("", res);
+            }
+            else if (res.ErrorCode == ErrorCode.NOT_FOUND_GUEST)
+            {
+                return NotFound(res);
+            }
 
             return NotFound(res);
         }

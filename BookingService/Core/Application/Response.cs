@@ -3,12 +3,17 @@
     public enum ErrorCode
     {
         #region Guest
-        NOT_FOUND = 1,
-        COULD_NOT_STORE_DATA = 2,
+        NOT_FOUND_GUEST = 1,
+        COULD_NOT_STORE_GUEST = 2,
         INVALID_DOCUMENT_ID = 3,
         MISSING_REQUIRED_INFORMATION = 4,
         INVALID_EMAIL = 5,
-        GUEST_NOT_FOUND = 6,
+        #endregion
+
+        #region Room
+        NOT_FOUND_ROOM = 101,
+        COULD_NOT_STORE_ROOM = 102,
+        MISSING_ROOM_REQUIRED_INFORMATION = 103,
         #endregion
 
         #region Booking

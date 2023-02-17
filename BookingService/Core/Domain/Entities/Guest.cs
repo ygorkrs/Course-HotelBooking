@@ -1,5 +1,4 @@
-﻿using Domain.Exceptions;
-using Domain.Guest.Exceptions;
+﻿using Domain.Guest.Exceptions;
 using Domain.UtilsTools;
 using Domain.Guest.Ports;
 using Domain.Guest.ValueObjects;

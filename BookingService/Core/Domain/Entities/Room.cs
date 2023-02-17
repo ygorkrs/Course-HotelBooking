@@ -1,4 +1,4 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Room.Exceptions;
 using Domain.Room.Ports;
 using Domain.Room.ValueObjects;
 
@@ -33,7 +33,7 @@ namespace Domain.Entities
                 Price.Value < 1 ||
                 Price.Currency == 0)
             {
-                throw new MissingRequiredInformationException();
+                throw new MissingRoomRequiredInformationException();
             }
         }
 

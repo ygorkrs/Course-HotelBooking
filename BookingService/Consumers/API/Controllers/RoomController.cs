@@ -36,13 +36,9 @@ namespace API.Controllers
             if (res.Sucess)
             {
                 return Created("", res.Data);
-            }
-            else if (res.ErrorCode == ErrorCode.NOT_FOUND)
-            {
-                return NotFound(res);
-            }
-            else if (res.ErrorCode == ErrorCode.COULD_NOT_STORE_DATA ||
-                res.ErrorCode == ErrorCode.MISSING_REQUIRED_INFORMATION)
+            }            
+            else if (res.ErrorCode == ErrorCode.MISSING_ROOM_REQUIRED_INFORMATION ||
+                res.ErrorCode == ErrorCode.COULD_NOT_STORE_ROOM)
             {
                 return BadRequest(res);
             }
@@ -56,7 +52,14 @@ namespace API.Controllers
         {
             var res = await _roomManager.GetRoom(idRoom);
 
-            if (res.Sucess) return Created("", res);
+            if (res.Sucess)
+            {
+                return Created("", res);
+            }
+            else if (res.ErrorCode == ErrorCode.NOT_FOUND_ROOM)
+            {
+                return NotFound(res);
+            }
 
             return NotFound(res);
         }

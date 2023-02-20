@@ -21,7 +21,17 @@ namespace Data.Room
 
         public Task<Domain.Entities.Room?> Get(int roomId)
         {
-            return _hotelDBContext.Rooms.Where(room => room.Id == roomId).FirstOrDefaultAsync();
+            return _hotelDBContext.Rooms
+                .Where(room => room.Id == roomId)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task<Domain.Entities.Room?> GetAggregate(int roomId)
+        {
+            return _hotelDBContext.Rooms
+                .Include(r => r.Bookings)
+                .Where(room => room.Id == roomId)
+                .FirstOrDefaultAsync();
         }
     }
 }

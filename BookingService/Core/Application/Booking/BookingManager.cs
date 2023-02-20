@@ -4,16 +4,22 @@ using Application.Booking.Requests;
 using Application.Responses;
 using Domain.Booking.Exceptions;
 using Domain.Booking.Ports;
+using Domain.Guest.Ports;
+using Domain.Room.Ports;
 
 namespace Application.Booking
 {
     public class BookingManager : IBookingManager
     {
         private readonly IBookingRepository _bookingRepository;
+        private readonly IGuestRepository _guestRepository;
+        private readonly IRoomRepository _roomRepository;
 
-        public BookingManager(IBookingRepository bookingRepository)
+        public BookingManager(IBookingRepository bookingRepository, IGuestRepository guestRepository, IRoomRepository roomRepository)
         {
             _bookingRepository = bookingRepository;
+            _guestRepository = guestRepository;
+            _roomRepository = roomRepository;
         }
 
         public async Task<BookingResponse> CreateBooking(CreateBookingRequest request)
@@ -21,6 +27,8 @@ namespace Application.Booking
             try
             {
                 var booking = BookingDTO.MaptoEntity(request.Data);
+                booking.Guest = await _guestRepository.Get(booking.Guest.Id);
+                booking.Room = await _roomRepository.GetAggregate(booking.Room.Id);
 
                 await booking.Save(_bookingRepository);
 
@@ -75,6 +83,15 @@ namespace Application.Booking
                     Sucess = false,
                     ErrorCode = ErrorCode.MISSING_BK_GUEST_INFORMATION,
                     Message = "Missing Guest information",
+                };
+            }
+            catch (RoomCannotBeBookedException e)
+            {
+                return new BookingResponse
+                {
+                    Sucess = false,
+                    ErrorCode = ErrorCode.BK_ROOM_CANNOT_BE_BOOKED,
+                    Message = "The given room cannot be booked",
                 };
             }
             catch (Exception e)

@@ -13,12 +13,7 @@ namespace Domain.Entities
         public DateTime End { get; set; }
         public Room Room { get; set; }
         public Guest Guest { get; set; }
-        private Status Status { get; set; }
-        public Status CurrentStatus
-        {   get {
-                return this.Status;
-            } 
-        }
+        public Status Status { get; set; }
 
         public Booking()
         {
@@ -61,6 +56,11 @@ namespace Domain.Entities
             {
                 throw new MissingGuestInformationException();
             }
+            if (!this.Room.CanBeBooked())
+            {
+                throw new RoomCannotBeBookedException();
+            }
+            this.Guest.CheckIfIsValid();
         }
 
         public async Task Save(IBookingRepository bookingRepository)

@@ -24,6 +24,7 @@
         MISSING_BK_END_INFORMATION = 205,
         MISSING_BK_ROOM_INFORMATION = 206,
         MISSING_BK_GUEST_INFORMATION = 207,
+        BK_ROOM_CANNOT_BE_BOOKED = 208,
         #endregion
     }
 

@@ -18,7 +18,7 @@ namespace Application.Booking.DTO
         public DateTime End { get; set; }
         public int RoomId { get; set; }
         public int GuestId { get; set; }
-        public Status CurrentStatus { get; set; }
+        public Status Status { get; set; }
 
         public static Entities.Booking MaptoEntity(BookingDTO bookingDTO)
         {
@@ -30,7 +30,7 @@ namespace Application.Booking.DTO
                 End = bookingDTO.End,
                 Room = new Entities.Room { Id = bookingDTO.RoomId },
                 Guest = new Entities.Guest { Id = bookingDTO.GuestId },
-                //CurrentStatus = bookingDTO.CurrentStatus
+                //Status = bookingDTO.Status
             };
         }
 
@@ -44,7 +44,7 @@ namespace Application.Booking.DTO
                 End = booking.End,
                 RoomId = booking.Room.Id,
                 GuestId = booking.Guest.Id,
-                CurrentStatus = booking.CurrentStatus,
+                Status = booking.Status,
             };
         }
     }

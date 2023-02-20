@@ -14,7 +14,7 @@ namespace DomainTests.Bookings
         public void ShouldAwaysStartWithCreatedStatus()
         {
             var booking = new Booking();
-            Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Created));
+            Assert.That(booking.Status, Is.EqualTo(Status.Created));
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace DomainTests.Bookings
         {
             var booking = new Booking();
             booking.ChangeStatus(Actions.Pay);
-            Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Paid));
+            Assert.That(booking.Status, Is.EqualTo(Status.Paid));
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace DomainTests.Bookings
         {
             var booking = new Booking();
             booking.ChangeStatus(Actions.Cancel);
-            Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Canceled));
+            Assert.That(booking.Status, Is.EqualTo(Status.Canceled));
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace DomainTests.Bookings
             var booking = new Booking();
             booking.ChangeStatus(Actions.Pay);
             booking.ChangeStatus(Actions.Finish);
-            Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Finished));
+            Assert.That(booking.Status, Is.EqualTo(Status.Finished));
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace DomainTests.Bookings
             var booking = new Booking();
             booking.ChangeStatus(Actions.Pay);
             booking.ChangeStatus(Actions.Refound);
-            Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Refounded));
+            Assert.That(booking.Status, Is.EqualTo(Status.Refounded));
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace DomainTests.Bookings
             var booking = new Booking();
             booking.ChangeStatus(Actions.Cancel);
             booking.ChangeStatus(Actions.Reopen);
-            Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Created));
+            Assert.That(booking.Status, Is.EqualTo(Status.Created));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace DomainTests.Bookings
         {
             var booking = new Booking();
             booking.ChangeStatus(Actions.Refound);
-            Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Created));
+            Assert.That(booking.Status, Is.EqualTo(Status.Created));
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace DomainTests.Bookings
             booking.ChangeStatus(Actions.Pay);
             booking.ChangeStatus(Actions.Finish);
             booking.ChangeStatus(Actions.Refound);
-            Assert.That(booking.CurrentStatus, Is.EqualTo(Status.Finished));
+            Assert.That(booking.Status, Is.EqualTo(Status.Finished));
         }
     }
 }

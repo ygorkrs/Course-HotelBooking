@@ -1,4 +1,5 @@
-﻿using Domain.Room.Exceptions;
+﻿using Enums = Domain.Booking.Enums;
+using Domain.Room.Exceptions;
 using Domain.Room.Ports;
 using Domain.Room.ValueObjects;
 
@@ -11,6 +12,8 @@ namespace Domain.Entities
         public int Level { get; set; }
         public bool InMaintenance { get; set; }
         public Price Price { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
+
         public bool IsAvailable 
         {
             get {
@@ -20,10 +23,20 @@ namespace Domain.Entities
                 return true;
             }
         }
+
         public bool HasGuest 
         {
-            // check if there is some booking for this room
-            get { return true; }
+            get {
+                var nonAvailableStates = new List<Enums.Status>()
+                {
+                    Enums.Status.Created,
+                    Enums.Status.Paid,
+                };
+
+                return this.Bookings.Where(
+                    bk => bk.Room.Id == this.Id &&
+                    nonAvailableStates.Contains(bk.Status)).Count() > 0;
+            }
         }
 
         private void IsValid()
@@ -35,6 +48,12 @@ namespace Domain.Entities
             {
                 throw new MissingRoomRequiredInformationException();
             }
+        }
+
+        public bool CheckIfIsValid()
+        {
+            this.IsValid();
+            return true;
         }
 
         public async Task Save(IRoomRepository roomRepository)
@@ -49,6 +68,25 @@ namespace Domain.Entities
             {
                 //await roomRepository.Update(this);
             }
+        }
+
+        public bool CanBeBooked()
+        {
+            try
+            {
+                this.IsValid();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            if (!this.IsAvailable)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

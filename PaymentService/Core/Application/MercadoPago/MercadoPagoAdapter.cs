@@ -7,14 +7,9 @@ using Application.Responses;
 
 namespace Payment.Application
 {
-    public class MercadoPagoAdapter : IMercadoPagoPaymentService
+    public class MercadoPagoAdapter : IPaymentProcessor
     {
-        public Task<PaymentResponse> PayWithBankTransfer(string paymentIntention)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PaymentResponse> PayWithCreditCard(string paymentIntention)
+        public Task<PaymentResponse> CapturePayment(string paymentIntention)
         {
             try
             {
@@ -35,6 +30,7 @@ namespace Payment.Application
                         Status = PaymentStatus.Success
                     },
                     Sucess = true,
+                    Message = "Payment successfully processed",
                 };
 
                 return Task.FromResult(dto);
@@ -44,7 +40,8 @@ namespace Payment.Application
                 return Task.FromResult(new PaymentResponse()
                 {
                     Sucess = false,
-                    ErrorCode = ErrorCode.PAYMENT_INVALID_PAYMENT_INTENTION
+                    ErrorCode = ErrorCode.PAYMENT_INVALID_PAYMENT_INTENTION,
+                    Message = "The given PaymentIntention is invalid",
                 });
             }
             catch (Exception ex)
@@ -56,11 +53,6 @@ namespace Payment.Application
                     Message = ex.Message
                 });
             }
-        }
-
-        public Task<PaymentResponse> PayWithDebitCard(string paymentIntention)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -2,7 +2,7 @@ using Application.Booking;
 using Application.Booking.Ports;
 using Application.Guest;
 using Application.Guest.Ports;
-using Application.Payment;
+using Application.Payment.Ports;
 using Application.Room;
 using Application.Room.Ports;
 using Data;
@@ -14,6 +14,7 @@ using Domain.Guest.Ports;
 using Domain.Room.Ports;
 using Microsoft.EntityFrameworkCore;
 using Payment.Application;
+using System.Text.Json.Serialization;
 
 namespace API
 {
@@ -34,7 +35,7 @@ namespace API
             builder.Services.AddScoped<IRoomManager, RoomManager>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
             builder.Services.AddScoped<IBookingManager, BookingManager>();
-            builder.Services.AddScoped<IMercadoPagoPaymentService, MercadoPagoAdapter>();
+            builder.Services.AddScoped<IPaymentProcessorFactory, PaymentProcessorFactory>();
             #endregion
 
             #region DB wiring UP
@@ -46,6 +47,10 @@ namespace API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddControllersWithViews()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
             var app = builder.Build();
 

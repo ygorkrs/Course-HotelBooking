@@ -30,6 +30,7 @@
         #region Payment related = 501 - 1500
         PAYMENT_GENERAL_ERROR = 501,
         PAYMENT_INVALID_PAYMENT_INTENTION = 502,
+        PAYMENT_PROVIDER_NOT_IMPLEMENTED = 503,
         #endregion
     }
 

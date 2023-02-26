@@ -10,7 +10,7 @@ using Domain.Guest.ValueObjects;
 
 namespace ApplicationTests
 {
-    public class Tests
+    public class GuestManagerTests
     {
         GuestManager guestManager;
         int expectedId = 999;

@@ -130,26 +130,5 @@ namespace Application.Booking
 
             return response;
         }
-
-        public async Task<BookingResponse> GetBooking(int idBooking)
-        {
-            var booking = await _bookingRepository.Get(idBooking);
-
-            if (booking == null)
-            {
-                return new BookingResponse
-                {
-                    Sucess = false,
-                    ErrorCode = ErrorCode.NOT_FOUND_BOOKING,
-                    Message = "Booking not found for the given Id",
-                };
-            }
-
-            return new BookingResponse
-            {
-                Data = BookingDTO.MapToDTO(booking),
-                Sucess = true,
-            };
-        }
     }
 }

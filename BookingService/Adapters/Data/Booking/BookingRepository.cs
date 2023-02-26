@@ -20,7 +20,11 @@ namespace Data.Booking
 
         public Task<Domain.Entities.Booking?> Get(int bookingId)
         {
-            return _hotelDBContext.Bookings.Where(booking => booking.Id == bookingId).FirstOrDefaultAsync();
+            return _hotelDBContext.Bookings
+                .Include(g => g.Guest)
+                .Include(r => r.Room)
+                .Where(booking => booking.Id == bookingId)
+                .FirstOrDefaultAsync();
         }
     }
 }

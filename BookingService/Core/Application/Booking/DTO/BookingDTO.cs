@@ -30,7 +30,6 @@ namespace Application.Booking.DTO
                 End = bookingDTO.End,
                 Room = new Entities.Room { Id = bookingDTO.RoomId },
                 Guest = new Entities.Guest { Id = bookingDTO.GuestId },
-                //Status = bookingDTO.Status
             };
         }
 

@@ -6,6 +6,7 @@ using Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Application.Bookings.Commands;
+using Application.Bookings.Queries;
 
 namespace API.Controllers
 {
@@ -76,7 +77,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<BookingDTO>> Get(int idBooking)
         {
-            var res = await _bookingManager.GetBooking(idBooking);
+            var res = await _mediator.Send(new GetBookingQuery { Id = idBooking });
 
             if (res.Sucess)
             {

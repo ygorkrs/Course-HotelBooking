@@ -2,6 +2,7 @@ using Application.Booking;
 using Application.Booking.Ports;
 using Application.Guest;
 using Application.Guest.Ports;
+using Application.Payment;
 using Application.Room;
 using Application.Room.Ports;
 using Data;
@@ -12,6 +13,7 @@ using Domain.Booking.Ports;
 using Domain.Guest.Ports;
 using Domain.Room.Ports;
 using Microsoft.EntityFrameworkCore;
+using Payment.Application;
 
 namespace API
 {
@@ -32,6 +34,7 @@ namespace API
             builder.Services.AddScoped<IRoomManager, RoomManager>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
             builder.Services.AddScoped<IBookingManager, BookingManager>();
+            builder.Services.AddScoped<IMercadoPagoPaymentService, MercadoPagoAdapter>();
             #endregion
 
             #region DB wiring UP

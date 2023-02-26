@@ -4,6 +4,8 @@ using Application.Booking.Requests;
 using Application.Payment.Responses;
 using Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using Application.Bookings.Commands;
 
 namespace API.Controllers
 {
@@ -13,13 +15,16 @@ namespace API.Controllers
     {
         private readonly ILogger<BookingController> _logger;
         private readonly IBookingManager _bookingManager;
+        private readonly IMediator _mediator;
 
         public BookingController(
             ILogger<BookingController> logger,
-            IBookingManager bookingManager)
+            IBookingManager bookingManager,
+            IMediator mediator)
         {
             _logger = logger;
             _bookingManager = bookingManager;
+            _mediator = mediator;
         }
 
         [HttpPost]
@@ -43,7 +48,10 @@ namespace API.Controllers
                 Data = booking,
             };
 
-            var res = await _bookingManager.CreateBooking(request);
+            var res = await _mediator.Send(new CreateBookingCommand
+            {
+                CreateBookingRequest = request,
+            });
 
             if (res == null) { return BadRequest(500); }
 

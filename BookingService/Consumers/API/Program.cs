@@ -15,6 +15,7 @@ using Domain.Room.Ports;
 using Microsoft.EntityFrameworkCore;
 using Payment.Application;
 using System.Text.Json.Serialization;
+using MediatR;
 
 namespace API
 {
@@ -27,6 +28,7 @@ namespace API
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddMediatR(typeof(BookingManager));
 
             #region IoC
             builder.Services.AddScoped<IGuestRepository, GuestRepository>();

@@ -61,10 +61,7 @@ namespace ApplicationTests
                 .Setup(x => x.GetPaymentProcessor(dto.SelectedPaymentProvider))
                 .Returns(paymentProcessor.Object);
 
-            bookingManager = new BookingManager(bookingRepository.Object,
-                guestRepository.Object,
-                roomRepository.Object,
-                paymentProcessorFactory.Object);
+            bookingManager = new BookingManager(paymentProcessorFactory.Object);
 
             var res = await bookingManager.PayForABooking(dto);
 

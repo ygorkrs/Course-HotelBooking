@@ -5,7 +5,7 @@ using Domain.Room.Exceptions;
 using Domain.Room.Ports;
 using MediatR;
 
-namespace Application.Rooms.Commands;
+namespace Application.Room.Commands;
 
 public class CreateRoomCommand : IRequest<RoomResponse>
 {

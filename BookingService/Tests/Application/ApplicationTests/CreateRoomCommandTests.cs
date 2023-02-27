@@ -1,4 +1,4 @@
-﻿using Application.Rooms.Commands;
+﻿using Application.Room.Commands;
 using Domain.Entities;
 using Domain.Room.Ports;
 using Moq;

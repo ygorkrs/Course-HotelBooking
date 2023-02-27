@@ -3,8 +3,6 @@ using Application.Booking.Ports;
 using Application.Guest;
 using Application.Guest.Ports;
 using Application.Payment.Ports;
-using Application.Room;
-using Application.Room.Ports;
 using Data;
 using Data.Booking;
 using Data.Guest;
@@ -34,7 +32,6 @@ namespace API
             builder.Services.AddScoped<IGuestRepository, GuestRepository>();
             builder.Services.AddScoped<IGuestManager, GuestManager>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-            builder.Services.AddScoped<IRoomManager, RoomManager>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
             builder.Services.AddScoped<IBookingManager, BookingManager>();
             builder.Services.AddScoped<IPaymentProcessorFactory, PaymentProcessorFactory>();

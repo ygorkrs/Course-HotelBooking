@@ -16,42 +16,6 @@ namespace Application.Room
             _roomRepository = roomRepository;
         }
 
-        public async Task<RoomResponse> CreateRoom(CreateRoomRequest request)
-        {
-            try
-            {
-                var room = RoomDTO.MapToEntity(request.Data);
-
-                await room.Save(_roomRepository);
-
-                request.Data.Id = room.Id;
-
-                return new RoomResponse
-                {
-                    Data = request.Data,
-                    Sucess = true,
-                };
-            }
-            catch (MissingRoomRequiredInformationException e)
-            {
-                return new RoomResponse
-                {
-                    Sucess = false,
-                    ErrorCode = ErrorCode.MISSING_ROOM_REQUIRED_INFORMATION,
-                    Message = "Missing required information passed",
-                };
-            }
-            catch (Exception e)
-            {
-                return new RoomResponse
-                {
-                    Sucess = false,
-                    ErrorCode = ErrorCode.COULD_NOT_STORE_ROOM,
-                    Message = "There was an error when saving to DB",
-                };
-            }
-        }
-
         public async Task<RoomResponse> GetRoom(int idRoom)
         {
             var room = await _roomRepository.Get(idRoom);
